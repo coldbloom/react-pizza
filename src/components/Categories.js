@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 const data = [{name: 'Мясные'}, {name: 'Вегетарианская'}, {name: 'Гриль'}, {name: 'Острые'}, {name: 'Закрытые'},]
 
 const Categories = () => {
-    const [active, setActive] = useState(null)
+    const [active, setActive] = useState(data[0].name)
     const activeFunc = (pizzaName) => {
         setActive(pizzaName)
     }
@@ -13,7 +13,7 @@ const Categories = () => {
                 {data.map(el => (
                     <li key={el.name}
                         onClick={() => activeFunc(el.name)}
-                        className={active === el.name && 'active'}
+                        className={(active === el.name) ? 'active' : null}
                     >
                         {el.name}
                     </li>

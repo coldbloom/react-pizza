@@ -35,7 +35,7 @@ const Sort = () => {
                         {data.map((el, i) =>
                             <li key={i}
                                 onClick={() => clickCategories(el)}
-                                className={el === currentSort && 'active'}
+                                className={(el === currentSort) ? 'active' : null}
                             >
                                 {el}
                             </li>

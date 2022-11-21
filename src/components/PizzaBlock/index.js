@@ -20,7 +20,7 @@ const PizzaItem = ({id, imageUrl, title, types, sizes, price, category, rating})
                             <li
                                 key={i}
                                 onClick={() => setActiveTypes(type)}
-                                className={activeTypes === type && 'active'}
+                                className={activeTypes === type ? 'active' : null}
                             >
                                 {typesName[type]}
                             </li>
@@ -31,7 +31,7 @@ const PizzaItem = ({id, imageUrl, title, types, sizes, price, category, rating})
                             <li
                                 key={i}
                                 onClick={() => setActiveSize(i)}
-                                className={activeSize === i && 'active'}
+                                className={activeSize === i ? 'active' : null}
                             >{el} см.</li>)
                         }
                     </ul>
