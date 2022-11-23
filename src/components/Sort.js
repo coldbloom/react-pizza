@@ -1,14 +1,22 @@
 import React, {useState} from 'react';
 
-const data = ['популярности', 'цене', 'алфавиту']
+const data = [
+    {name: 'популярности (DESC)', sortProperty: 'rating', sortValue: 'desc'},
+    {name: 'популярности (ASC)', sortProperty: 'rating', sortValue: 'asc'},
+    {name: 'цене (DESC)', sortProperty: 'price', sortValue: 'desc'},
+    {name: 'цене (ASC)', sortProperty: 'price', sortValue: 'asc'},
+    {name: 'алфавиту (DESC)', sortProperty: 'alphabet', sortValue: 'desc'},
+    {name: 'алфавиту (ASC)', sortProperty: 'alphabet', sortValue: 'asc'},
+]
 
-const Sort = () => {
+const Sort = ({value, onChangeSort}) => {
     const [popupIsVisible, setPopupIsVisible] = useState(false)
-    const [currentSort, setCurrrentSort] = useState(data[0])
-    function clickCategories(el) {
-        setCurrrentSort(el)
+
+    const onChangeSortItem = (i) => {
         setPopupIsVisible(false)
+        onChangeSort(i)
     }
+
     return (
         <div className="sort">
             <div className="sort__label">
@@ -26,18 +34,18 @@ const Sort = () => {
                 </svg>
                 <b>Сортировка по:</b>
                 <span onClick={() => setPopupIsVisible(!popupIsVisible)}>
-                    {currentSort}
+                    {value.name}
                 </span>
             </div>
             {popupIsVisible &&
                 <div className="sort__popup">
                     <ul>
-                        {data.map((el, i) =>
+                        {data.map((obj, i) =>
                             <li key={i}
-                                onClick={() => clickCategories(el)}
-                                className={(el === currentSort) ? 'active' : null}
+                                onClick={() => onChangeSortItem(obj)}
+                                className={(obj.sortProperty === value.sortProperty && obj.sortValue === value.sortValue) ? 'active' : null}
                             >
-                                {el}
+                                {obj.name}
                             </li>
                         )}
                     </ul>

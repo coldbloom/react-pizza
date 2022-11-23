@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
 
-const data = [{name: 'Мясные'}, {name: 'Вегетарианская'}, {name: 'Гриль'}, {name: 'Острые'}, {name: 'Закрытые'},]
+const data = [{name: 'Все'},{name: 'Мясные'}, {name: 'Вегетарианская'}, {name: 'Гриль'}, {name: 'Острые'}, {name: 'Закрытые'},]
 
-const Categories = () => {
-    const [active, setActive] = useState(data[0].name)
-    const activeFunc = (pizzaName) => {
-        setActive(pizzaName)
-    }
+const Categories = ({value, onChangeCategory}) => {
+
     return (
         <div className="categories">
             <ul>
-                {data.map(el => (
-                    <li key={el.name}
-                        onClick={() => activeFunc(el.name)}
-                        className={(active === el.name) ? 'active' : null}
+                {data.map((el, i) => (
+                    <li key={i}
+                        onClick={() => onChangeCategory(i)}
+                        className={(value === i) ? 'active' : null}
                     >
                         {el.name}
                     </li>
