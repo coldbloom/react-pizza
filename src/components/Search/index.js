@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import s from './Search.module.scss'
 import searchIcon from './../../assets/search.png'
 import cleanIcon from './../../assets/cross-search.png'
 import cn from 'classnames'
+import { SearchContext } from "../../App";
 
-const Search = ({searchValue, setSearchValue}) => {
+const Search = () => {
+    const {searchValue, setSearchValue} = useContext(SearchContext)
     return (
         <div className={s.root}>
             <img src={searchIcon} className={s.icon}/>
