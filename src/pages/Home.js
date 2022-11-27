@@ -4,6 +4,7 @@ import PizzaItem from "../components/PizzaBlock";
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination";
+import axios from 'axios'
 import { SearchContext } from "../App";
 import { useSelector } from "react-redux";
 
@@ -26,11 +27,10 @@ const Home = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        fetch(`https://637945d67419b414df8cdd1c.mockapi.io/Items?page=${currentPage}&limit=4${category}${sort}${search}`)
-            .then(res => res.json())
-            .then(json => {
+        axios.get(`https://637945d67419b414df8cdd1c.mockapi.io/Items?page=${currentPage}&limit=4${category}${sort}${search}`)
+            .then((res) => {
+                setItems(res.data)
                 setIsLoading(false)
-                setItems(json)
             })
     }, [categoryId, sortType, searchValue, currentPage])
 
