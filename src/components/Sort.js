@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {setSort} from './../redux/slices/filterSlice'
+import {setSort, setPageCount} from './../redux/slices/filterSlice'
 import {} from './../redux/slices/filterSlice'
 
 const data = [
@@ -16,6 +16,23 @@ const Sort = () => {
     const dispatch = useDispatch()
     const [popupIsVisible, setPopupIsVisible] = useState(false)
 
+    const sortRef = useRef(null)
+
+    useEffect(() => {
+        console.log('mount')
+        const handleClickOutside = event => {
+            if (!event.path.includes(sortRef.current)) {
+                setPopupIsVisible(false)
+            }
+        }
+        document.body.addEventListener('click', handleClickOutside)
+
+        return () => {
+            console.log('sort unmount')
+            document.body.removeEventListener('click', handleClickOutside)
+        }
+    }, [])
+
     const onChangeSortItem = (obj) => {
         setPopupIsVisible(false)
         dispatch(setSort(obj))
@@ -24,7 +41,7 @@ const Sort = () => {
     const sort = useSelector(state => state.filter.sort)
 
     return (
-        <div className="sort">
+        <div className="sort" ref={sortRef}>
             <div className="sort__label">
                 <svg
                     width="10"
